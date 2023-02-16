@@ -423,19 +423,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 171851796, guid: 8d543868fe1199a48a2d10eb7462c93c, type: 3}
       propertyPath: m_Force.y
-      value: -20
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 171851796, guid: 8d543868fe1199a48a2d10eb7462c93c, type: 3}
       propertyPath: m_RelativeForce.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3840899632918352935, guid: 8d543868fe1199a48a2d10eb7462c93c, type: 3}
+      propertyPath: m_Drag
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840899632918352935, guid: 8d543868fe1199a48a2d10eb7462c93c, type: 3}
       propertyPath: m_AngularDrag
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5370542272702938050, guid: 8d543868fe1199a48a2d10eb7462c93c, type: 3}
+      propertyPath: _enginePower
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370542272702938050, guid: 8d543868fe1199a48a2d10eb7462c93c, type: 3}
       propertyPath: _rotationSpeed
-      value: 5
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 5405467619304875096, guid: 8d543868fe1199a48a2d10eb7462c93c, type: 3}
       propertyPath: m_RootOrder

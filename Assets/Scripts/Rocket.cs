@@ -6,6 +6,7 @@ using UnityEngine;
 public class Rocket : MonoBehaviour
 {
     private Rigidbody _rigidbody;
+    private AudioSource _audioSource;
 
     [SerializeField] private int _enginePower = 3;
     [SerializeField] private int _rotationSpeed = 5;
@@ -15,18 +16,24 @@ public class Rocket : MonoBehaviour
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _audioSource = GetComponent<AudioSource>();
+
+        _audioSource.volume = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (_audioSource.volume > 0)
+            _audioSource.volume -= (0.5f + _audioSource.volume) * Time.deltaTime;
     }
 
     public void Move()
     {
-        if (_rigidbody.velocity.magnitude > _maxSpeed) return;
-        
+        _audioSource.volume = 0.25f * _rigidbody.velocity.magnitude;
+
+        if (_rigidbody.velocity.magnitude > _maxSpeed) return;    
+
         _rigidbody.AddRelativeForce(Vector3.up * _enginePower * Time.deltaTime);
     }
 
