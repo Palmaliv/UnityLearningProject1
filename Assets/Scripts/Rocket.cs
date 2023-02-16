@@ -8,15 +8,22 @@ public class Rocket : MonoBehaviour
     private Rigidbody _rigidbody;
     private AudioSource _audioSource;
 
-    [SerializeField] private int _enginePower = 3;
-    [SerializeField] private int _rotationSpeed = 5;
+
+    [Header("Audio effects")]
     [SerializeField] private AudioClip _thrustSound;
     [SerializeField] private AudioClip _destroySound;
     [SerializeField] private AudioClip _levelCompleteSound;
 
+    [Header("Particle effects")]
+    [SerializeField] private ParticleSystem _thrustEffect;
+    [SerializeField] private ParticleSystem _destroyEffect;
+    [SerializeField] private ParticleSystem _levelCompleteEffect;
+
+    private int _enginePower = 2000;
+    private int _rotationSpeed = 500;
     private int _maxSpeed = 5;
-    private float _destroySoundVolume = 0.5f;
-    private float _levelCompleteSoundVolume = 1f;
+    private float _destroySoundVolume = 0.25f;
+    private float _levelCompleteSoundVolume = 0.5f;
 
     public bool IsControllable {get; private set;}
 
@@ -37,13 +44,21 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_audioSource.volume > 0)
-            _audioSource.volume -= (0.5f + _audioSource.volume) * Time.deltaTime;
+        if (IsControllable) 
+        {
+            if (_audioSource.volume > 0)
+                _audioSource.volume -= (0.5f + _audioSource.volume) * Time.deltaTime;
+            else
+                _thrustEffect.Stop();
+        }
     }
 
     public void Thrust()
     {
         _audioSource.volume = 0.10f * _rigidbody.velocity.magnitude;
+
+        if (!_thrustEffect.isPlaying)
+            _thrustEffect.Play();
 
         if (_rigidbody.velocity.magnitude < _maxSpeed)
             _rigidbody.AddRelativeForce(Vector3.up * _enginePower * Time.deltaTime);
@@ -75,14 +90,28 @@ public class Rocket : MonoBehaviour
     private void OnDestruction()
     {
         IsControllable = false;
-        _audioSource.PlayOneShot(_destroySound, _destroySoundVolume);
+
+        _thrustEffect.Stop();
+        _destroyEffect.Play();
+
+        _audioSource.Stop();
+        _audioSource.volume = _destroySoundVolume;
+        _audioSource.PlayOneShot(_destroySound);
+
         GlobalEventManager.ObstacleCollision();
     }
 
     private void OnLevelComplete()
     {
         IsControllable = false;
-        _audioSource.PlayOneShot(_levelCompleteSound, _levelCompleteSoundVolume);
+
+        _thrustEffect.Stop();
+        _levelCompleteEffect.Play();
+
+        _audioSource.Stop();
+        _audioSource.volume = _levelCompleteSoundVolume;
+        _audioSource.PlayOneShot(_levelCompleteSound);
+
         GlobalEventManager.LevelComplete();
     }
 }
