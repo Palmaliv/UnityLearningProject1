@@ -17,13 +17,14 @@ public class InputController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckInput();
+        if (_rocket)
+            CheckInput();
     }
 
     private void CheckInput()
     {
         if (Input.GetKey(KeyCode.Space))
-            _rocket.Move();
+            _rocket.Thrust();
 
         if (Input.GetKey(KeyCode.A))
             _rocket.Rotate(1);

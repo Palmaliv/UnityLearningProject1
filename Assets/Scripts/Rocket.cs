@@ -12,6 +12,7 @@ public class Rocket : MonoBehaviour
     [SerializeField] private int _rotationSpeed = 5;
 
     private int _maxSpeed = 5;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,8 @@ public class Rocket : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
 
         _audioSource.volume = 0;
+        _audioSource.loop = true;
+        _audioSource.Play();
     }
 
     // Update is called once per frame
@@ -28,17 +31,29 @@ public class Rocket : MonoBehaviour
             _audioSource.volume -= (0.5f + _audioSource.volume) * Time.deltaTime;
     }
 
-    public void Move()
+    public void Thrust()
     {
         _audioSource.volume = 0.25f * _rigidbody.velocity.magnitude;
 
-        if (_rigidbody.velocity.magnitude > _maxSpeed) return;    
-
-        _rigidbody.AddRelativeForce(Vector3.up * _enginePower * Time.deltaTime);
+        if (_rigidbody.velocity.magnitude < _maxSpeed)
+            _rigidbody.AddRelativeForce(Vector3.up * _enginePower * Time.deltaTime);
     }
 
     public void Rotate(int side)
     {
         _rigidbody.AddRelativeTorque(Vector3.forward * side * _rotationSpeed * Time.deltaTime);
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        switch (other.gameObject.tag)
+        {
+            case "Finish":
+                Debug.Log("Победа");
+                break;
+            default:
+                Debug.Log("Вы разбились");
+                break;
+        }
     }
 }
