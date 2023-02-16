@@ -31,7 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4871614799859160918}
   - {fileID: 7153296306114698843}
@@ -84,6 +84,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enginePower: 2000
   _rotationSpeed: 500
+  _thrustSound: {fileID: 8300000, guid: 36dbb9b994fb6b24b8ecd761280edcbd, type: 3}
+  _destroySound: {fileID: 8300000, guid: 006ed36678a2838458592c48f43fce42, type: 3}
+  _levelCompleteSound: {fileID: 8300000, guid: 53e9601165f874d46a980b18eac609cc, type: 3}
 --- !u!75 &171851796
 ConstantForce:
   m_ObjectHideFlags: 0
@@ -106,7 +109,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6daf7c3f7bfba8b48ae39284d44c2f9d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 36dbb9b994fb6b24b8ecd761280edcbd, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

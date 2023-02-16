@@ -17,7 +17,7 @@ public class InputController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_rocket)
+        if (_rocket && _rocket.IsControllable)
             CheckInput();
     }
 
