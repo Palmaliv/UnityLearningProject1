@@ -25,7 +25,7 @@ public class Rocket : MonoBehaviour
     private float _destroySoundVolume = 0.25f;
     private float _levelCompleteSoundVolume = 0.5f;
 
-    public bool IsControllable {get; private set;}
+    public bool IsControllable { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +44,7 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsControllable) 
+        if (IsControllable)
         {
             if (_audioSource.volume > 0)
                 _audioSource.volume -= (0.5f + _audioSource.volume) * Time.deltaTime;
