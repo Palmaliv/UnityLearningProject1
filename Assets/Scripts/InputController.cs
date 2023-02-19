@@ -11,7 +11,11 @@ public class InputController : MonoBehaviour
     void Update()
     {
         if (_rocket && _rocket.IsControllable)
+        {
             CheckInput();
+            if (Debug.isDebugBuild)
+                CheckDebugInput();
+        }
     }
 
     private void CheckInput()
@@ -24,5 +28,17 @@ public class InputController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D))
             _rocket.Rotate(-1);
+    }
+
+    private void CheckDebugInput()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+            GlobalEventManager.ObstacleCollision();
+
+        if (Input.GetKeyDown(KeyCode.Q))
+            GlobalEventManager.LevelComplete();
+
+        if (Input.GetKeyDown(KeyCode.C))
+            _rocket.SwitchCollision();
     }
 }

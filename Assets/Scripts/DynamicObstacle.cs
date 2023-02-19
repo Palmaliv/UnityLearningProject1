@@ -3,7 +3,7 @@ using UnityEngine;
 public class DynamicObstacle : MonoBehaviour
 {
     [SerializeField] private Vector3 _offsetVector;
-    [Min(0.01f)][SerializeField] private float _period = 1f;
+    [SerializeField] private float _period = 1f;
     private Vector3 _startingPosition;
 
     void Start()
@@ -19,6 +19,9 @@ public class DynamicObstacle : MonoBehaviour
 
     private void Move()
     {
+        if (_period == 0)
+            return;
+
         float rawSine = Mathf.Sin(Time.time / _period);
         float sineWave =  rawSine / 2 + 0.5f;
 

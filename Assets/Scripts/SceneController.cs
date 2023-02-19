@@ -6,7 +6,8 @@ public class SceneController : MonoBehaviour
     private static SceneController _instance = null;
 
     private int _currentSceneIndex;
-    private int _timeBeforeLoad = 3;
+    private float _timeBeforeLoad = 0.5f;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -33,13 +34,12 @@ public class SceneController : MonoBehaviour
 
     private void LoadNextLevel()
     {
-        if (_currentSceneIndex + 1 > SceneManager.sceneCount)
-        {
-            RestartLevel();
-            return;
-        }
+        if (_currentSceneIndex + 1 == SceneManager.sceneCountInBuildSettings)
+            _currentSceneIndex = 0;
+        else
+            _currentSceneIndex++;
 
-        SceneManager.LoadScene(++_currentSceneIndex);
+        SceneManager.LoadScene(_currentSceneIndex);
     }
 
     private void RestartLevel()

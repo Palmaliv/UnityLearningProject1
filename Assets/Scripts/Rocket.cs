@@ -26,6 +26,7 @@ public class Rocket : MonoBehaviour
     private float _levelCompleteSoundVolume = 0.5f;
 
     public bool IsControllable { get; private set; }
+    public bool IsCollisionActive {get; set;}
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,7 @@ public class Rocket : MonoBehaviour
         _audioSource.Play();
 
         IsControllable = true;
+        IsCollisionActive = true;
     }
 
     // Update is called once per frame
@@ -69,9 +71,14 @@ public class Rocket : MonoBehaviour
         _rigidbody.AddRelativeTorque(Vector3.forward * side * _rotationSpeed * Time.deltaTime);
     }
 
+    public void SwitchCollision()
+    {
+        IsCollisionActive = !IsCollisionActive;
+    }
+
     private void OnCollisionEnter(Collision other)
     {
-        if (!IsControllable)
+        if (!IsControllable || !IsCollisionActive)
             return;
 
         switch (other.gameObject.tag)
